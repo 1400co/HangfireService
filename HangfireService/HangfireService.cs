@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using Serilog;
 
 namespace HangfireConsole
 {
@@ -21,11 +22,13 @@ namespace HangfireConsole
 
         public void Start()
         {
+            Log.Information("Servicio iniciado");
             _server.Start();
         }
 
         public void Stop()
         {
+            Log.Information("Servicio detenido");
             _server.Dispose();
         }
     }
