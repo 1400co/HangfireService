@@ -29,9 +29,11 @@ namespace AspNetFrameworkHangfireSample
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            HangfireAspNet.Use(GetHangfireServers);
+
+            HangfireStartup.ConfigureHangfire(); // Use this if the hangfire server is located outside of web api.
+            //HangfireAspNet.Use(GetHangfireServers); //Use this to create the server on website.
             //// Let's also create a sample background job
-            BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire!"));
+            BackgroundJob.Enqueue(() => Debug.WriteLine("Hello world from Hangfire .net Framework!"));
            
         }
     }
