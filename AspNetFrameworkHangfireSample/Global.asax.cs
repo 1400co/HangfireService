@@ -11,6 +11,7 @@ namespace AspNetFrameworkHangfireSample
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        //Use this if worker will run on website.
         private IEnumerable<IDisposable> GetHangfireServers()
         {
             GlobalConfiguration.Configuration
@@ -19,7 +20,12 @@ namespace AspNetFrameworkHangfireSample
                 .UseRecommendedSerializerSettings()
                 .UseSqlServerStorage("Server=localhost;Initial Catalog=pruebas;User ID=sa;Password=Pass@Word;Encrypt=True;TrustServerCertificate=True;");
 
-            yield return new BackgroundJobServer();
+            var serverOptions = new BackgroundJobServerOptions
+            {
+                WorkerCount = 1
+            };
+
+            yield return new BackgroundJobServer(serverOptions);
         }
 
         protected void Application_Start(object sender, EventArgs e)
